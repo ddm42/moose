@@ -23,7 +23,12 @@ else
       perl -pli -e "s/\s+$//" "$fname" # this would also fix EOF issues
     elif [ "$(tail -c1 "$fname")" != "" ]; then
       echo "Adding newline at EOF: $fname"
-      sed -i -e '$a\' "$fname"
+      # Use sed in-place edit without creating backup files
+      if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' -e '$a\' "$fname" # macOS/BSD sed syntax
+      else
+        sed -i -e '$a\' "$fname" # GNU sed syntax
+      fi
     fi
   done < <( find "$REPO_DIR" -path "*/contrib" -prune -o -path "*/libmesh" -prune -o \( -name "*.[Chi]" -o -name "*.py" -o -name "*.tex" \) -type f -print0)
 fi
