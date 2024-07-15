@@ -32,7 +32,10 @@ InitialConditionBase::validParams()
                         "this IC");
   params.addParamNamesToGroup("ignore_uo_dependency", "Advanced");
 
-  params.addParam<int>("state", 0, "Specify which state being set.");
+  params.addParam<int>("state",
+                       0,
+                       "Specify which state is being set, with 0 being the current state, 1 the "
+                       "old state, 2 the older state, etc..");
 
   params.addParamNamesToGroup("state", "Advanced");
 

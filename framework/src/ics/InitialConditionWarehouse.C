@@ -75,8 +75,7 @@ InitialConditionWarehouse::addObject(std::shared_ptr<InitialConditionBase> objec
   // Non-restricted
   else
   {
-    std::map<std::tuple<std::string, int>, std::set<SubdomainID>>::const_iterator iter =
-        _block_ics[tid].find(ic_key);
+    auto iter = _block_ics[tid].find(ic_key);
     if (iter != _block_ics[tid].end())
       mooseError("The initial condition '",
                  object->name(),
